@@ -1,0 +1,34 @@
+server:
+  port: 9005
+
+custom:
+  server-ip: 192.168.29.226
+
+spring:
+  application:
+    name: CONFIG-SERVICE
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://${custom.server-ip}:8761/eureka/
+  instance:
+    hostname: ${custom.server-ip}
+    prefer-ip-address: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+    info:
+      enabled: true
+    metrics:
+      enabled: true
+    env:
+      enabled: true

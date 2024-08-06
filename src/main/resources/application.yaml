@@ -2,11 +2,18 @@ server:
   port: 9005
 
 custom:
-  server-ip: 192.168.29.226
+  server-ip: localhost
 
 spring:
   application:
     name: CONFIG-SERVICE
+  profiles:
+      active: native
+  cloud:
+      config:
+          server:
+              native:
+                  search-locations: "classpath:/config"
 
 eureka:
   client:
@@ -32,3 +39,5 @@ management:
       enabled: true
     env:
       enabled: true
+
+

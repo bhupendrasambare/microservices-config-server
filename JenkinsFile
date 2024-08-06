@@ -2,17 +2,18 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = "bhupendra1404/microservice:ms-authenticate"
-        CONTAINER_NAME = "ms-authenticate"
+        DOCKER_IMAGE = "bhupendra1404/microservice:ms-config"
+        CONTAINER_NAME = "ms-config"
         DOCKER_PATH = '/usr/local/bin/docker'
         MAVEN_PATH = '/opt/homebrew/Cellar/maven/3.9.5/libexec/bin/mvn'
+        CUSTOM_SERVER_IP = '192.168.29.226'
     }
 
     stages {
 
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/bhupendrasambare/microservices-authenticate-service.git'
+                git branch: 'main', url: 'https://github.com/bhupendrasambare/microservices-config-server.git'
             }
         }
 
@@ -25,7 +26,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    sh "${DOCKER_PATH} build --pull=false --progress=plain -t ${DOCKER_IMAGE} ."
+                    sh "${DOCKER_PATH} build --pull=false --progress=plain  -t ${DOCKER_IMAGE} ."
                 }
             }
         }
@@ -41,7 +42,7 @@ pipeline {
                     """
 
                     sh """
-                    ${DOCKER_PATH} run -i -p 9003:9003 -d --name ${CONTAINER_NAME} ${DOCKER_IMAGE}
+                    ${DOCKER_PATH} run -i -p 9005:9005 -d --name ${CONTAINER_NAME} -e CUSTOM_SERVER_IP=${CUSTOM_SERVER_IP} ${DOCKER_IMAGE}
                     """
                 }
             }

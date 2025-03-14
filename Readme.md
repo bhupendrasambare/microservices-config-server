@@ -14,7 +14,7 @@ This project is a Spring Cloud Config Server that serves as the central configur
 
 To run this project locally, ensure you have the following installed:
 
-- Java 17 or later
+- Java 22 or later
 - Maven 3.9.5 or later
 - Docker (for building and running containerized services)
 - Git (for cloning the repository)
@@ -62,7 +62,7 @@ The following `Dockerfile` is used to create a Docker image for the Config Serve
 
 ```dockerfile
 # Start with a base image containing Java runtime
-FROM openjdk:17-jdk-slim
+FROM openjdk:22-jdk-slim
 
 # Set the working directory inside the container
 WORKDIR /app
@@ -110,11 +110,11 @@ pipeline {
     agent any
 
     environment {
-        JAVA_HOME = "/Users/bhupendrasam1404/Library/Java/JavaVirtualMachines/jdk-22.0.1.jdk/Contents/Home"
+        JAVA_HOME = "/Users/bhupendrasam1404/Library/Java/JavaVirtualMachines/jdk-21.0.6.jdk/Contents/Home"
         DOCKER_IMAGE = "bhupendra1404/microservice:ms-config"
         CONTAINER_NAME = "ms-config"
         DOCKER_PATH = '/usr/local/bin/docker'
-        MAVEN_PATH = '/opt/homebrew/Cellar/maven/3.9.5/libexec/bin/mvn'
+        MAVEN_PATH = '/opt/homebrew/Cellar/maven/3.9.9/libexec/bin/mvn'
         CUSTOM_SERVER_IP = '192.168.29.226'
     }
 
